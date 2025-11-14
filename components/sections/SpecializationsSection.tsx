@@ -7,6 +7,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { MotionFadeUp, MotionStaggerList, TiltCard } from '@/components/animations';
+import { GridPattern } from '@/components/effects/GridPattern';
 
 export const SPECIALIZATIONS = [
   {
@@ -53,18 +54,20 @@ export const SPECIALIZATIONS = [
 
 export function SpecializationsSection() {
   return (
-    <section id="solucoes" className="section-spacing bg-gradient-to-b from-background via-primary-50/20 to-background relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 right-1/3 w-72 h-72 bg-primary-300/10 blur-3xl rounded-full"></div>
-        <div className="absolute -bottom-32 left-1/4 w-80 h-80 bg-accent-300/10 blur-3xl rounded-full"></div>
+    <section id="solucoes" className="section-spacing bg-background relative overflow-hidden">
+      {/* Blueprint Grid Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <GridPattern variant="blueprint" opacity={0.12} animated={true} />
       </div>
+
+      {/* Decorative gradient blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-32 right-1/3 w-72 h-72 bg-primary-300/8 blur-3xl rounded-full"></div>
+        <div className="absolute -bottom-32 left-1/4 w-80 h-80 bg-accent-300/8 blur-3xl rounded-full"></div>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <MotionFadeUp>
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-              🧭 Navegação estratégica
-            </span>
-          </MotionFadeUp>
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <MotionFadeUp delay={80}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
               Escolha onde a IA começa a trabalhar por você
@@ -82,21 +85,29 @@ export function SpecializationsSection() {
             const Icon = spec.icon;
             return (
               <MotionFadeUp key={spec.slug}>
-                <TiltCard className="h-full bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-soft border border-white/60 hover:border-primary-200/60 hover:shadow-lifted transition-all duration-300 focus-within:ring-2 focus-within:ring-primary-500">
-                  <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary-600" aria-hidden="true" />
+                <TiltCard className="h-full bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-soft border border-primary-100/50 hover:border-primary-300/60 hover:shadow-lifted transition-all duration-300 focus-within:ring-2 focus-within:ring-primary-500 relative group overflow-hidden">
+                  {/* Subtle grid pattern on card */}
+                  <div className="absolute inset-0 opacity-30 group-hover:opacity-40 transition-opacity">
+                    <GridPattern variant="dots" opacity={0.08} />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{spec.title}</h3>
-                  <p className="text-sm text-neutral-700 mb-3">{spec.description}</p>
-                  <p className="text-xs text-neutral-500 mb-4">{spec.benefit}</p>
-                  <Link
-                    href={`/solucoes/${spec.slug}`}
-                    className="inline-flex items-center text-sm font-semibold text-primary-700 hover:text-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
-                    aria-label={spec.cta}
-                  >
-                    {spec.cta}
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </Link>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-4 border border-primary-200/50 group-hover:border-primary-300">
+                      <Icon className="w-6 h-6 text-primary-600" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{spec.title}</h3>
+                    <p className="text-sm text-neutral-700 mb-3">{spec.description}</p>
+                    <p className="text-xs text-neutral-500 mb-4">{spec.benefit}</p>
+                    <Link
+                      href={`/solucoes/${spec.slug}`}
+                      className="inline-flex items-center text-sm font-semibold text-primary-700 hover:text-primary-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 transition-colors"
+                      aria-label={spec.cta}
+                    >
+                      {spec.cta}
+                      <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
                 </TiltCard>
               </MotionFadeUp>
             );

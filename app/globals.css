@@ -409,6 +409,12 @@
     transform: translateY(2px);
   }
 
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 20px 60px hsla(var(--accent-500), 0.35),
+                0 10px 30px hsla(var(--accent-500), 0.25);
+  }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-primary-700 border-2 border-primary-400 font-semibold text-lg rounded-full transition-all duration-300 relative overflow-hidden;
   }
@@ -429,6 +435,11 @@
 
   .btn-secondary:hover::before {
     opacity: 1;
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(15, 168, 158, 0.2);
   }
 
   /* Section Spacing */
@@ -479,6 +490,14 @@
 
   .text-gradient-dynamic {
     @apply bg-clip-text text-transparent bg-gradient-to-br from-primary-600 via-accent-500 to-accent-600;
+  }
+
+  .text-reveal-word {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+    animation: text-reveal-word 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    will-change: opacity, transform, filter;
   }
 
   /* Transform Utilities - Hover 3D */
@@ -720,6 +739,19 @@
   }
 }
 
+@keyframes text-reveal-word {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 /* Flowing waves for backgrounds */
 @keyframes wave-motion {
   0%, 100% {
@@ -898,6 +930,12 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .text-reveal-word {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 @layer base {
@@ -909,3 +947,191 @@
   }
 }
 
+/* =============================================
+   BLUEPRINT & PATTERN ANIMATIONS
+   ============================================= */
+
+@keyframes grid-flow {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes schematic-flow {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes dots-connect {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes grid-pulse {
+  0%, 100% {
+    stroke-opacity: 0.2;
+  }
+  50% {
+    stroke-opacity: 0.4;
+  }
+}
+
+@keyframes circuit-switch {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes split-reveal {
+  0% {
+    clip-path: inset(0 50% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@layer utilities {
+  .animate-grid-flow {
+    animation: grid-flow 3s ease-in-out infinite;
+  }
+
+  .animate-schematic-flow {
+    animation: schematic-flow 2s ease-in-out infinite;
+  }
+
+  .animate-dots-connect {
+    animation: dots-connect 3s ease-in-out infinite;
+  }
+
+  .animate-grid-pulse {
+    animation: grid-pulse 2.5s ease-in-out infinite;
+  }
+
+  .animate-circuit-switch {
+    animation: circuit-switch 3s linear infinite;
+  }
+
+  .animate-data-flow {
+    animation: data-flow 2s ease-in-out infinite;
+  }
+
+  .animate-split-reveal {
+    animation: split-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Blueprint Text Effect */
+  .blueprint-text {
+    position: relative;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--primary-600)) 0%,
+      hsl(var(--primary-500)) 50%,
+      hsl(var(--primary-600)) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Grid Overlay Effect */
+  .grid-overlay {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grid-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(0deg, transparent 24%, rgba(15, 168, 158, 0.08) 25%, rgba(15, 168, 158, 0.08) 26%, transparent 27%, transparent 74%, rgba(15, 168, 158, 0.08) 75%, rgba(15, 168, 158, 0.08) 76%, transparent 77%, transparent),
+      linear-gradient(90deg, transparent 24%, rgba(15, 168, 158, 0.08) 25%, rgba(15, 168, 158, 0.08) 26%, transparent 27%, transparent 74%, rgba(15, 168, 158, 0.08) 75%, rgba(15, 168, 158, 0.08) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  /* Split Screen Grid */
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .split-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Flowing Metric */
+  .flowing-metric {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flowing-metric::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
+    animation: circuit-switch 3s linear infinite;
+  }
+
+  /* Data Visualization Elements */
+  .data-point {
+    position: relative;
+  }
+
+  .data-point::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle,
+      hsl(var(--primary-500)) 0%,
+      transparent 70%
+    );
+    animation: data-flow 2s ease-in-out infinite;
+  }
+}

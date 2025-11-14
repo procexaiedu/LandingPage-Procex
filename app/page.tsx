@@ -24,7 +24,11 @@ import {
 } from 'lucide-react';
 import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion';
 import { MotionFadeUp, MotionStaggerList, TiltCard } from '@/components/animations';
-import { SpecializationsSection, SPECIALIZATIONS, AnimatedMetricsCard, FlowingStepCard, FeatureComparisonCard } from '@/components/sections';
+import { SpecializationsSection, SPECIALIZATIONS, FlowingStepCard, FeatureComparisonCard } from '@/components/sections';
+import { AnimatedGradientMesh, FloatingOrbs, TextReveal, ScrollIndicator, CursorGlow, ParticleField } from '@/components/effects';
+import { GridPattern } from '@/components/effects/GridPattern';
+import { AnimatedLogo } from '@/components/ui/AnimatedLogo';
+import { MagneticButton } from '@/components/ui/MagneticButton';
 import { cn } from '@/lib/utils';
 
 export default function LandingPage() {
@@ -38,10 +42,6 @@ export default function LandingPage() {
   const heroPointerY = useMotionValue(0);
   const heroParallaxX = useSpring(heroPointerX, { stiffness: 80, damping: 20, mass: 0.4 });
   const heroParallaxY = useSpring(heroPointerY, { stiffness: 80, damping: 20, mass: 0.4 });
-  const ctaPointerX = useMotionValue(0);
-  const ctaPointerY = useMotionValue(0);
-  const ctaMagnetX = useSpring(ctaPointerX, { stiffness: 260, damping: 20, mass: 0.3 });
-  const ctaMagnetY = useSpring(ctaPointerY, { stiffness: 260, damping: 20, mass: 0.3 });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -95,24 +95,12 @@ export default function LandingPage() {
     heroPointerY.set(0);
   };
 
-  const handleCtaMagnet = (event: ReactMouseEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion) {
-      return;
-    }
-    const rect = event.currentTarget.getBoundingClientRect();
-    const offsetX = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
-    const offsetY = ((event.clientY - rect.top) / rect.height - 0.5) * 18;
-    ctaPointerX.set(offsetX);
-    ctaPointerY.set(offsetY);
-  };
-
-  const resetCtaMagnet = () => {
-    ctaPointerX.set(0);
-    ctaPointerY.set(0);
-  };
 
   return (
     <div className="min-h-screen">
+      {/* Cursor Glow Effect */}
+      <CursorGlow />
+
       {/* 1. HEADER GLOBAL - Cinematográfico Premium */}
       <header
         className={cn(
@@ -125,11 +113,9 @@ export default function LandingPage() {
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Logo - Com animação de entrada */}
+            {/* Logo - Com animação de entrada aprimorada */}
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="w-10 h-10 bg-gradient-cta rounded-lg flex items-center justify-center transition-all duration-300 group-hover:shadow-accent group-hover:scale-110">
-                <span className="text-white font-bold text-xl">P</span>
-              </div>
+              <AnimatedLogo />
               <span className="font-heading text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-700 to-primary-600 transition-all duration-300 group-hover:from-primary-600 group-hover:to-primary-500">
                 ProceX
               </span>
@@ -149,8 +135,8 @@ export default function LandingPage() {
                     key={section}
                     onClick={() => scrollToSection(section)}
                     className={cn(
-                      'text-neutral-700 font-medium transition-all duration-300',
-                      'relative group hover:text-primary-600 overflow-hidden'
+                      'text-neutral-100 font-medium transition-all duration-300',
+                      'relative group hover:text-white overflow-hidden'
                     )}
                   >
                     {labels[section]}
@@ -234,9 +220,19 @@ export default function LandingPage() {
         onMouseMove={handleHeroPointerMove}
         onMouseLeave={resetHeroPointer}
       >
-        {/* Background Layers - Profundidade cinematográfica */}
+        {/* Background Layers - Profundidade cinematográfica com novos efeitos */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80"></div>
+
+          {/* Animated Gradient Mesh */}
+          <AnimatedGradientMesh />
+
+          {/* Floating Orbs */}
+          <FloatingOrbs />
+
+          {/* Particle Field */}
+          <ParticleField count={40} />
+
           <motion.div
             aria-hidden="true"
             className="absolute top-6 right-16 w-80 h-80 rounded-full bg-primary-400/20 blur-3xl"
@@ -276,22 +272,27 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-5xl mx-auto space-y-8 text-white">
-            {/* Badge com animação de entrada */}
-            <MotionFadeUp>
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-sm font-semibold border border-white/30 shadow-soft backdrop-blur-lg">
-                <span className="w-2 h-2 bg-accent-400 rounded-full pulse-soft"></span>
-                ✨ IA na prática para quem quer ser mais
-              </div>
-            </MotionFadeUp>
 
-            {/* Headline Principal - Impactante */}
+            {/* Headline Principal - Impactante com Text Reveal */}
             <MotionFadeUp delay={100}>
               <div className="space-y-4">
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight drop-shadow-[0_25px_35px_rgba(0,0,0,0.55)]">
-                  <span className="block text-gradient-dynamic">IA trabalhando com você</span>
-                  <span className="block bg-gradient-cta bg-clip-text text-transparent">
+                  <TextReveal
+                    as="span"
+                    className="block"
+                    wordClassName="text-gradient-dynamic"
+                    delay={200}
+                  >
+                    IA trabalhando com você
+                  </TextReveal>
+                  <TextReveal
+                    as="span"
+                    className="block"
+                    wordClassName="bg-gradient-cta bg-clip-text text-transparent"
+                    delay={500}
+                  >
                     para você ser mais.
-                  </span>
+                  </TextReveal>
                 </h1>
               </div>
             </MotionFadeUp>
@@ -319,31 +320,26 @@ export default function LandingPage() {
               </p>
             </MotionFadeUp>
 
-            {/* CTA Buttons - Premium */}
+            {/* CTA Buttons - Premium com Magnetic Effect */}
             <MotionFadeUp delay={360}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <motion.div
-                  className="inline-flex"
-                  style={{ x: ctaMagnetX, y: ctaMagnetY }}
-                  onMouseMove={handleCtaMagnet}
-                  onMouseLeave={resetCtaMagnet}
+                <MagneticButton
+                  onClick={() => scrollToSection('waitlist')}
+                  className="btn-primary text-lg py-4 px-8 hover-lift group inline-flex"
+                  magnetStrength={0.4}
                 >
-                  <button
-                    onClick={() => scrollToSection('waitlist')}
-                    className="btn-primary text-lg py-4 px-8 hover-lift group"
-                  >
-                    <span className="flex items-center gap-2">
-                      Quero ver, na prática, como IA pode me ajudar
-                      <ArrowRight className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </button>
-                </motion.div>
-                <button
+                  <span className="flex items-center gap-2">
+                    Quero ver, na prática, como IA pode me ajudar
+                    <ArrowRight className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1" />
+                  </span>
+                </MagneticButton>
+                <MagneticButton
                   onClick={() => scrollToSection('solucoes')}
-                  className="btn-secondary text-lg py-4 px-8 hover-lift border-white/50 text-white hover:text-primary-700"
+                  className="btn-secondary text-lg py-4 px-8 hover-lift border-white/50 text-white hover:text-primary-700 inline-flex items-center justify-center"
+                  magnetStrength={0.3}
                 >
                   Explorar soluções por área
-                </button>
+                </MagneticButton>
               </div>
             </MotionFadeUp>
 
@@ -387,34 +383,37 @@ export default function LandingPage() {
             </MotionFadeUp>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <ScrollIndicator />
       </section>
 
       <SpecializationsSection />
 
-      {/* 3. SOCIAL PROOF - Impressionante e Cinematic */}
-      <section className="section-spacing bg-gradient-to-b from-background via-primary-50/30 to-background relative overflow-hidden">
+      {/* 3. SOCIAL PROOF - Impressionante e Cinematic com Grid Pattern */}
+      <section className="section-spacing bg-background relative overflow-hidden">
+        {/* Blueprint Grid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.1} animated={true} />
+        </div>
+
         {/* Background Animation */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            className="absolute top-40 right-1/4 w-96 h-96 bg-primary-300/5 rounded-full blur-3xl"
+            className="absolute top-40 right-1/4 w-96 h-96 bg-primary-300/4 rounded-full blur-3xl"
             animate={prefersReducedMotion ? undefined : { y: [0, -30, 0] }}
             transition={prefersReducedMotion ? undefined : { duration: 18, repeat: Infinity, ease: 'easeInOut' }}
           ></motion.div>
           <motion.div
-            className="absolute bottom-0 left-1/3 w-96 h-96 bg-accent-300/5 rounded-full blur-3xl"
+            className="absolute bottom-0 left-1/3 w-96 h-96 bg-accent-300/4 rounded-full blur-3xl"
             animate={prefersReducedMotion ? undefined : { y: [0, 40, 0] }}
             transition={prefersReducedMotion ? undefined : { duration: 24, repeat: Infinity, ease: 'easeInOut' }}
           ></motion.div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Section Header - Cinematográfico */}
+          {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <MotionFadeUp>
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-                📊 Resultados comprovados
-              </span>
-            </MotionFadeUp>
 
             <MotionFadeUp delay={100}>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
@@ -431,7 +430,7 @@ export default function LandingPage() {
             </MotionFadeUp>
           </div>
 
-          {/* Metrics Grid - Com animações em cascata */}
+          {/* Metrics Grid with Data Flow Effect */}
           <MotionStaggerList className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" delayChildren={250}>
             {[
               {
@@ -462,19 +461,24 @@ export default function LandingPage() {
               const Icon = metric.icon;
               return (
                 <MotionFadeUp key={i}>
-                  <TiltCard className="group relative bg-white/80 backdrop-blur-md rounded-2xl p-7 shadow-soft border border-white/50 hover:shadow-lifted hover:border-primary-200/50 overflow-hidden">
-                    {/* Shine effect on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-full group-hover:translate-x-0"></div>
+                  <TiltCard className="group relative bg-white/90 backdrop-blur-md rounded-2xl p-7 shadow-soft border border-primary-100/50 hover:border-primary-300/60 hover:shadow-lifted overflow-hidden transition-all duration-300">
+                    {/* Grid pattern overlay on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity">
+                      <GridPattern variant="dots" opacity={0.1} />
+                    </div>
+
+                    {/* Flowing data effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary-300/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-circuit-switch"></div>
 
                     {/* Content */}
                     <div className="relative z-10">
-                      {/* Icon */}
-                      <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                      {/* Icon with glow */}
+                      <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-50 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 border border-primary-200/50 group-hover:shadow-glow">
                         <Icon className="w-7 h-7 text-primary-600" />
                       </div>
 
-                      {/* Value */}
-                      <div className="metric-number text-3xl sm:text-4xl mb-4 font-bold text-primary-700">
+                      {/* Value with blueprint effect */}
+                      <div className="metric-number text-3xl sm:text-4xl mb-4 font-bold text-primary-700 flowing-metric">
                         {metric.value}
                       </div>
 
@@ -523,21 +527,21 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS - Timeline cinematográfica */}
-      <section id="como-funciona" className="section-spacing bg-gradient-to-b from-background to-primary-50/20 relative overflow-hidden">
+      {/* HOW IT WORKS - Timeline with Technical Schematic */}
+      <section id="como-funciona" className="section-spacing bg-background relative overflow-hidden">
+        {/* Blueprint Grid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.08} animated={true} />
+        </div>
+
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary-400/8 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary-400/6 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <MotionFadeUp>
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-secondary-accent-500/15 text-secondary-accent-500 text-sm font-semibold border border-secondary-accent-500/30">
-                🚀 Processo simplificado
-              </span>
-            </MotionFadeUp>
 
             <MotionFadeUp delay={120}>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
@@ -624,22 +628,22 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. CASE STUDIES - Antes/Depois com efeitos visuais */}
-      <section id="casos-reais" className="section-spacing bg-gradient-to-b from-background to-muted/20 relative overflow-hidden">
+      {/* 7. CASE STUDIES - Antes/Depois com efeitos visuais e Grid Pattern */}
+      <section id="casos-reais" className="section-spacing bg-background relative overflow-hidden">
+        {/* Blueprint Grid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.12} animated={true} />
+        </div>
+
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-accent-400/8 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 left-40 w-96 h-96 bg-primary-400/8 rounded-full blur-3xl"></div>
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-accent-400/6 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 left-40 w-96 h-96 bg-primary-400/6 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <div className="inline-block animate-fade-up">
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-success/15 text-success text-sm font-semibold border border-success/30">
-                ✅ Resultados reais
-              </span>
-            </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up" style={{ animationDelay: '100ms' }}>
               Antes e depois de ter
@@ -737,53 +741,6 @@ export default function LandingPage() {
             })}
           </div>
 
-          {/* Metrics Results - Animated Reveals */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-12">Métricas que falam por si</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <AnimatedMetricsCard
-                metric="Aumento em Vendas"
-                metricValue={32}
-                title="Agente Comercial"
-                description="Base de clientes reativada com mensagens personalizadas e fluxo contínuo"
-                icon={<TrendingUp className="w-6 h-6" />}
-                delay={0}
-                accentColor="primary"
-              />
-
-              <AnimatedMetricsCard
-                metric="Tempo de Resposta"
-                metricValue="15 → 1"
-                title="Agente de Atendimento"
-                description="Respostas automáticas em tempo real para dúvidas e agendamentos"
-                icon={<Clock className="w-6 h-6" />}
-                delay={100}
-                accentColor="primary"
-              />
-
-              <AnimatedMetricsCard
-                metric="Redução em Inadimplência"
-                metricValue={28}
-                title="Agente Financeiro"
-                description="Cobranças automatizadas e lembretes inteligentes de pagamento"
-                icon={<DollarSign className="w-6 h-6" />}
-                delay={200}
-                gradient="from-accent-400/20 to-primary-400/20"
-                accentColor="accent"
-              />
-
-              <AnimatedMetricsCard
-                metric="Eficiência Operacional"
-                metricValue={45}
-                title="Agente Operacional"
-                description="Automação de rotinas repetitivas e manutenção de dados em tempo real"
-                icon={<Zap className="w-6 h-6" />}
-                delay={300}
-                accentColor="primary"
-              />
-            </div>
-          </div>
-
           {/* Testimonials - Com estilo melhorado */}
           <div className="max-w-4xl mx-auto mb-16">
             <h3 className="text-3xl font-bold text-center mb-12">O que nossos clientes dizem</h3>
@@ -829,22 +786,22 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 8. USE CASES - Casos de uso com hover 3D */}
-      <section className="section-spacing bg-gradient-to-b from-background to-primary-50/20 relative overflow-hidden">
+      {/* 8. USE CASES - Casos de uso com Grid Pattern e Circuit Switching */}
+      <section className="section-spacing bg-background relative overflow-hidden">
+        {/* Blueprint Grid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.1} animated={true} />
+        </div>
+
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-primary-300/5 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-accent-300/5 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-primary-300/4 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-40 left-1/3 w-96 h-96 bg-accent-300/4 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <div className="inline-block animate-fade-up">
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-                🎯 Para quem a ProceX foi criada
-              </span>
-            </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up" style={{ animationDelay: '100ms' }}>
               Pessoas e empresas que querem
@@ -991,9 +948,19 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 9. ENTRY MODELS */}
-      <section id="planos" className="section-spacing bg-gradient-to-b from-primary-50/30 to-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 9. ENTRY MODELS - Pricing with Grid Pattern */}
+      <section id="planos" className="section-spacing bg-background relative overflow-hidden">
+        {/* Blueprint Grid Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.09} animated={true} />
+        </div>
+
+        {/* Decorative blob */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-primary-300/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
             <MotionFadeUp>
               <h2 className="mb-2">Comece pequeno, teste rápido, cresça com segurança</h2>
@@ -1114,9 +1081,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 10. FAQ */}
-      <section className="section-spacing bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 10. FAQ - Minimal Grid and Interactive Accordion */}
+      <section className="section-spacing bg-background relative overflow-hidden">
+        {/* Minimal Grid Pattern */}
+        <div className="absolute inset-0 pointer-events-none">
+          <GridPattern variant="blueprint" opacity={0.06} animated={false} />
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="mb-6">Ainda com dúvidas sobre IA na sua empresa?</h2>
             <p className="text-xl text-neutral-600">
