@@ -711,53 +711,6 @@ export default function LandingPage() {
             })}
           </div>
 
-          {/* Metrics Results - Animated Reveals */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-center mb-12">Métricas que falam por si</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <AnimatedMetricsCard
-                metric="Aumento em Vendas"
-                metricValue={32}
-                title="Agente Comercial"
-                description="Base de clientes reativada com mensagens personalizadas e fluxo contínuo"
-                icon={<TrendingUp className="w-6 h-6" />}
-                delay={0}
-                accentColor="primary"
-              />
-
-              <AnimatedMetricsCard
-                metric="Tempo de Resposta"
-                metricValue="15 → 1"
-                title="Agente de Atendimento"
-                description="Respostas automáticas em tempo real para dúvidas e agendamentos"
-                icon={<Clock className="w-6 h-6" />}
-                delay={100}
-                accentColor="primary"
-              />
-
-              <AnimatedMetricsCard
-                metric="Redução em Inadimplência"
-                metricValue={28}
-                title="Agente Financeiro"
-                description="Cobranças automatizadas e lembretes inteligentes de pagamento"
-                icon={<DollarSign className="w-6 h-6" />}
-                delay={200}
-                gradient="from-accent-400/20 to-primary-400/20"
-                accentColor="accent"
-              />
-
-              <AnimatedMetricsCard
-                metric="Eficiência Operacional"
-                metricValue={45}
-                title="Agente Operacional"
-                description="Automação de rotinas repetitivas e manutenção de dados em tempo real"
-                icon={<Zap className="w-6 h-6" />}
-                delay={300}
-                accentColor="primary"
-              />
-            </div>
-          </div>
-
           {/* Testimonials - Com estilo melhorado */}
           <div className="max-w-4xl mx-auto mb-16">
             <h3 className="text-3xl font-bold text-center mb-12">O que nossos clientes dizem</h3>
