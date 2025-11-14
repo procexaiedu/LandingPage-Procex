@@ -31,11 +31,10 @@ export function FlowingStepCard({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: {
-        delay: delay / 1000,
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      }
+        transition: {
+          delay: delay / 1000,
+          duration: 0.7,
+        }
     }
   };
 
@@ -45,11 +44,10 @@ export function FlowingStepCard({
       opacity: 1,
       scale: 1,
       rotate: 0,
-      transition: {
-        delay: (delay + 150) / 1000,
-        duration: 0.8,
-        ease: [0.34, 1.56, 0.64, 1],
-      }
+        transition: {
+          delay: (delay + 150) / 1000,
+          duration: 0.8,
+        }
     },
     hover: {
       scale: 1.1,
@@ -106,6 +104,14 @@ export function FlowingStepCard({
         />
         <div className="relative w-6 h-6 bg-white border-4 border-primary-600 rounded-full shadow-lifted ring-4 ring-primary-100/30" />
       </motion.div>
+
+      {/* Connector line for desktop timelines */}
+      {showConnector && (
+        <motion.div
+          aria-hidden="true"
+          className="hidden md:block absolute left-1/2 top-16 -translate-x-1/2 w-px bottom-[-2rem] z-10 pointer-events-none bg-gradient-to-b from-primary-500/70 via-primary-200/40 to-transparent"
+        />
+      )}
 
       {/* Content card */}
       <div className={cn('md:w-1/2', isAlternate ? 'md:pr-8 lg:pr-16' : 'md:pl-8 lg:pl-16')}>
