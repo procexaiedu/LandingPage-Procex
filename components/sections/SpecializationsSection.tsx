@@ -61,11 +61,6 @@ export function SpecializationsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <MotionFadeUp>
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-              🧭 Navegação estratégica
-            </span>
-          </MotionFadeUp>
-          <MotionFadeUp delay={80}>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
               Escolha onde a IA começa a trabalhar por você
             </h2>

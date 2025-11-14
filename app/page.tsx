@@ -276,14 +276,6 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-5xl mx-auto space-y-8 text-white">
-            {/* Badge com animação de entrada */}
-            <MotionFadeUp>
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 text-sm font-semibold border border-white/30 shadow-soft backdrop-blur-lg">
-                <span className="w-2 h-2 bg-accent-400 rounded-full pulse-soft"></span>
-                ✨ IA na prática para quem quer ser mais
-              </div>
-            </MotionFadeUp>
-
             {/* Headline Principal - Impactante */}
             <MotionFadeUp delay={100}>
               <div className="space-y-4">
@@ -411,12 +403,6 @@ export default function LandingPage() {
           {/* Section Header - Cinematográfico */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
             <MotionFadeUp>
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-                📊 Resultados comprovados
-              </span>
-            </MotionFadeUp>
-
-            <MotionFadeUp delay={100}>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 IA já gerando resultado
                 <br />
@@ -534,12 +520,6 @@ export default function LandingPage() {
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
             <MotionFadeUp>
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-secondary-accent-500/15 text-secondary-accent-500 text-sm font-semibold border border-secondary-accent-500/30">
-                🚀 Processo simplificado
-              </span>
-            </MotionFadeUp>
-
-            <MotionFadeUp delay={120}>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
                 Veja como é simples
                 <br />
@@ -635,13 +615,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <div className="inline-block animate-fade-up">
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-success/15 text-success text-sm font-semibold border border-success/30">
-                ✅ Resultados reais
-              </span>
-            </div>
-
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up" style={{ animationDelay: '100ms' }}>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up">
               Antes e depois de ter
               <br />
               <span className="text-gradient">um agente de IA na equipe</span>
@@ -840,13 +814,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
-            <div className="inline-block animate-fade-up">
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary-100/60 text-primary-700 text-sm font-semibold border border-primary-200/50">
-                🎯 Para quem a ProceX foi criada
-              </span>
-            </div>
-
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up" style={{ animationDelay: '100ms' }}>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold animate-fade-up">
               Pessoas e empresas que querem
               <br />
               <span className="text-gradient">usar IA na prática</span>
