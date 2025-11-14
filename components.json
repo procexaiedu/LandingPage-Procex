@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.ts",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "registries": {
+    "@alpine": "https://alpine-registry.vercel.app/r/{name}.json",
+    "@tailark": "https://tailark.com/r/{name}.json",
+    "@magicui": {
+      "url": "https://pro.magicui.design/registry/{name}",
+      "headers": {
+        "Authorization": "Bearer ${MAGICUI_PRO_REGISTRY_TOKEN}"
+      }
+    },
+    "@shadcn-form": "https://www.shadcn-form.com/r/{name}.json",
+    "@animateui": "https://animate-ui.com/r/{name}.json",
+    "@fancycomponents": {
+      "url": "https://www.fancycomponents.dev/registry/{name}.json"
+    },
+    "@plateui": "https://platejs.org/r/{name}.json",
+    "@animate-ui": "https://animate-ui.com/r/{name}.json"
+  }
+}
