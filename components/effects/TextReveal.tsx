@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
-import { type ElementType } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion';
 import { cn } from '@/lib/utils';
 
@@ -23,21 +22,75 @@ export function TextReveal({
   as = 'span',
 }: TextRevealProps) {
   const words = children.trim().split(/\s+/).filter(Boolean);
-  const Component = as as ElementType;
+  const Component = as;
 
   return (
     <div className={className}>
-      <Component className="inline-flex flex-wrap justify-center">
-        {words.map((word, index) => (
-          <span
-            key={`${word}-${index}`}
-            className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
-            style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
-          >
-            {word}
-          </span>
-        ))}
-      </Component>
+      {Component === 'span' && (
+        <span className="inline-flex flex-wrap justify-center">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
+              style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
+            >
+              {word}
+            </span>
+          ))}
+        </span>
+      )}
+      {Component === 'h1' && (
+        <h1 className="inline-flex flex-wrap justify-center">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
+              style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
+            >
+              {word}
+            </span>
+          ))}
+        </h1>
+      )}
+      {Component === 'h2' && (
+        <h2 className="inline-flex flex-wrap justify-center">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
+              style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
+            >
+              {word}
+            </span>
+          ))}
+        </h2>
+      )}
+      {Component === 'h3' && (
+        <h3 className="inline-flex flex-wrap justify-center">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
+              style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
+            >
+              {word}
+            </span>
+          ))}
+        </h3>
+      )}
+      {Component === 'p' && (
+        <p className="inline-flex flex-wrap justify-center">
+          {words.map((word, index) => (
+            <span
+              key={`${word}-${index}`}
+              className={cn('inline-block mr-[0.3em] text-reveal-word', wordClassName)}
+              style={{ animationDelay: `${delay / 1000 + index * 0.08}s` }}
+            >
+              {word}
+            </span>
+          ))}
+        </p>
+      )}
     </div>
   );
 }

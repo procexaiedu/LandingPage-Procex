@@ -23,10 +23,16 @@ import {
   Stethoscope,
 } from 'lucide-react';
 import { usePrefersReducedMotion } from '@/hooks/use-prefers-reduced-motion';
-import { MotionFadeUp, MotionStaggerList, TiltCard } from '@/components/animations';
+import { MotionFadeUp, MotionStaggerList } from '@/components/animations';
 import { SpecializationsSection, SPECIALIZATIONS, FlowingStepCard, FeatureComparisonCard } from '@/components/sections';
 import { AnimatedGradientMesh, FloatingOrbs, TextReveal, ScrollIndicator, CursorGlow, ParticleField } from '@/components/effects';
 import { GridPattern } from '@/components/effects/GridPattern';
+import { Hero3D } from '@/components/effects/Hero3D';
+import { Background3D } from '@/components/effects/Background3D';
+import { ParallaxLayer, ParallaxSection } from '@/components/effects/ParallaxScroll';
+import { ScrollReveal, ScrollProgressBar } from '@/components/effects/ScrollReveal';
+import { FloatingCard3D, MagneticElement } from '@/components/effects/FloatingCard3D';
+import { Adaptive3D } from '@/components/effects/Adaptive3D';
 import { AnimatedLogo } from '@/components/ui/AnimatedLogo';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { cn } from '@/lib/utils';
@@ -98,6 +104,9 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen">
+      {/* Scroll Progress Bar */}
+      <ScrollProgressBar />
+
       {/* Cursor Glow Effect */}
       <CursorGlow />
 
@@ -224,14 +233,21 @@ export default function LandingPage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/80"></div>
 
+          {/* 3D Hero - Interactive 3D Model */}
+          <Hero3D />
+
           {/* Animated Gradient Mesh */}
           <AnimatedGradientMesh />
 
-          {/* Floating Orbs */}
-          <FloatingOrbs />
+          {/* Floating Orbs with Parallax */}
+          <ParallaxLayer speed={-2}>
+            <FloatingOrbs />
+          </ParallaxLayer>
 
-          {/* Particle Field */}
-          <ParticleField count={40} />
+          {/* Particle Field with Parallax */}
+          <ParallaxLayer speed={-1}>
+            <ParticleField count={40} />
+          </ParallaxLayer>
 
           <motion.div
             aria-hidden="true"
@@ -391,7 +407,12 @@ export default function LandingPage() {
       <SpecializationsSection />
 
       {/* 3. SOCIAL PROOF - Impressionante e Cinematic com Grid Pattern */}
-      <section className="section-spacing bg-background relative overflow-hidden">
+      <ParallaxSection className="section-spacing bg-background relative overflow-hidden">
+        {/* Background3D (Adaptive for mobile) */}
+        <Adaptive3D>
+          <Background3D />
+        </Adaptive3D>
+
         {/* Blueprint Grid Background */}
         <div className="absolute inset-0 pointer-events-none">
           <GridPattern variant="blueprint" opacity={0.1} animated={true} />
@@ -460,8 +481,8 @@ export default function LandingPage() {
             ].map((metric, i) => {
               const Icon = metric.icon;
               return (
-                <MotionFadeUp key={i}>
-                  <TiltCard className="group relative bg-white/90 backdrop-blur-md rounded-2xl p-7 shadow-soft border border-primary-100/50 hover:border-primary-300/60 hover:shadow-lifted overflow-hidden transition-all duration-300">
+                <ScrollReveal key={i} variant="slide" delay={i * 0.1}>
+                  <FloatingCard3D intensity={12} className="group relative bg-white/90 backdrop-blur-md rounded-2xl p-7 shadow-soft border border-primary-100/50 hover:border-primary-300/60 hover:shadow-lifted overflow-hidden transition-all duration-300">
                     {/* Grid pattern overlay on hover */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity">
                       <GridPattern variant="dots" opacity={0.1} />
@@ -485,8 +506,8 @@ export default function LandingPage() {
                       {/* Description */}
                       <p className="text-neutral-600 text-sm leading-relaxed font-medium">{metric.description}</p>
                     </div>
-                  </TiltCard>
-                </MotionFadeUp>
+                  </FloatingCard3D>
+                </ScrollReveal>
               );
             })}
           </MotionStaggerList>
@@ -514,18 +535,20 @@ export default function LandingPage() {
 
           {/* CTA - Premium */}
           <MotionFadeUp delay={360} className="text-center">
-            <button
-              onClick={() => scrollToSection('casos-reais')}
-              className="btn-secondary hover-lift group"
-            >
-              <span className="flex items-center gap-2">
-                Ver casos reais por área
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-            </button>
+            <MagneticElement strength={0.2}>
+              <button
+                onClick={() => scrollToSection('casos-reais')}
+                className="btn-secondary hover-lift group"
+              >
+                <span className="flex items-center gap-2">
+                  Ver casos reais por área
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+              </button>
+            </MagneticElement>
           </MotionFadeUp>
         </div>
-      </section>
+      </ParallaxSection>
 
       {/* HOW IT WORKS - Timeline with Technical Schematic */}
       <section id="como-funciona" className="section-spacing bg-background relative overflow-hidden">

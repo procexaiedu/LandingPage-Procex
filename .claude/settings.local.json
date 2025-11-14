@@ -17,7 +17,9 @@
       "Bash(dir /b \"C:\\PROCEX-AI-LANDING-PAGE\\public\")",
       "Bash(tree /L 3 /F C:PROCEX-AI-LANDING-PAGE 2)",
       "Bash(nul)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(echo:*)",
+      "Bash(\"C:\\PROCEX-AI-LANDING-PAGE\\components\\effects\\index.ts\")"
     ],
     "deny": [],
     "ask": []

@@ -1,6 +1,14 @@
 export { AnimatedGradientMesh } from './AnimatedGradientMesh';
 export { FloatingOrbs } from './FloatingOrbs';
-export { TextReveal, LetterReveal } from './TextReveal';
+export { TextReveal } from './TextReveal';
 export { ScrollIndicator } from './ScrollIndicator';
 export { CursorGlow } from './CursorGlow';
 export { ParticleField } from './ParticleField';
+export { GridPattern } from './GridPattern';
+export { DotsPattern } from './DotsPattern';
+export { SchematicLines } from './SchematicLines';
+export { Hero3D } from './Hero3D';
+export { Background3D } from './Background3D';
+export { ParallaxScroll, ParallaxLayer, ParallaxSection } from './ParallaxScroll';
+export { ScrollReveal, ScrollProgressBar } from './ScrollReveal';
+export { FloatingCard3D, MagneticElement } from './FloatingCard3D';

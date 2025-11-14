@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 
 export const metadata: Metadata = {
   title: 'ProceX - IA acessível para o dia a dia da sua empresa',
@@ -28,8 +29,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      <body className="min-h-screen">{children}</body>
+    <html lang="pt-BR">
+      <body className="min-h-screen">
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   );
 }
