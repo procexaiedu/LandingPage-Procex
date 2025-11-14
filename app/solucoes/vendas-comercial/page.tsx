@@ -35,7 +35,7 @@ const BENEFICIOS = [
 export default function VendasComercialPage() {
   return (
     <main className="min-h-screen bg-background">
-      <section className="section-spacing bg-gradient-hero text-white">
+      <section className="section-spacing bg-gradient-dark text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl space-y-8">
           <MotionFadeUp>
             <p className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 text-sm font-semibold border border-white/30">
